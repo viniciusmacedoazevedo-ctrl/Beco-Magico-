@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Beco Mágico — Hamburgueria</title>
+  <meta name="description" content="Beco Mágico, hamburgueria. Desmonte o nosso cheeseburger camada por camada e conheça o cardápio.">
+  <meta name="theme-color" content="#0b0907">
+  <meta property="og:title" content="Beco Mágico — Hamburgueria">
+  <meta property="og:description" content="Desmonte o nosso cheeseburger camada por camada e conheça o cardápio.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="modulepreload" href="vendor/three/three.module.min.js">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="pular" href="#cardapio">Pular para o cardápio</a>
+
+  <header class="topo">
+    <a class="marca" href="#topo" aria-label="Beco Mágico, início">
+      <svg class="marca-simbolo" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M5 14.5C5 8.7 9.9 5 16 5s11 3.7 11 9.5c0 .8-.6 1.3-1.3 1.3H6.3c-.7 0-1.3-.5-1.3-1.3Z" fill="currentColor"/>
+        <rect x="4" y="18" width="24" height="3" rx="1.5" fill="currentColor" opacity=".55"/>
+        <path d="M5 23.5h22v.8c0 1.6-1.3 2.7-2.9 2.7H7.9C6.3 27 5 25.9 5 24.3v-.8Z" fill="currentColor"/>
+      </svg>
+      <span class="marca-nome">Beco Mágico</span>
+    </a>
+    <nav class="topo-nav" aria-label="Principal">
+      <a href="#anatomia">Anatomia</a>
+      <a href="#cardapio">Cardápio</a>
+      <a class="btn btn-ember btn-sm" href="#" data-pedido hidden>Pedir</a>
+      <a class="btn btn-claro btn-sm" href="#cardapio">Ver cardápio</a>
+    </nav>
+  </header>
+
+  <main id="topo">
+    <!-- Abertura + anatomia: palco sticky controlado pelo scroll -->
+    <section class="anatomia" id="anatomia" aria-labelledby="hero-titulo">
+      <div class="palco">
+        <div class="palco-fundo" aria-hidden="true"></div>
+        <canvas class="palco-canvas" aria-hidden="true"></canvas>
+
+        <div class="hero-copy">
+          <p class="sobretitulo">Beco Mágico <span aria-hidden="true">·</span> Hamburgueria</p>
+          <h1 class="hero-titulo" id="hero-titulo">Camada<br>por camada.</h1>
+          <p class="hero-sub">Role a página e desmonte o nosso cheeseburger até o último ingrediente.</p>
+          <div class="hero-acoes">
+            <a class="btn btn-ember" href="#cardapio">Ver cardápio</a>
+            <a class="link-seta" href="#anatomia-fim">Desmontar <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <div class="rotulos" aria-hidden="true"></div>
+
+        <div class="final-copy">
+          <p class="sobretitulo">Cheeseburger, aberto</p>
+          <p class="final-titulo">Sete camadas.<br><span>Nenhuma sobrando.</span></p>
+        </div>
+
+        <div class="scroll-cue" aria-hidden="true">
+          <span class="scroll-cue-linha"></span>
+          <span>Role para desmontar</span>
+        </div>
+        <div class="trilho" aria-hidden="true"><span class="trilho-fill"></span></div>
+
+        <div class="anatomia-estatica">
+          <p class="sobretitulo">O que vai no Cheeseburger, de cima para baixo</p>
+          <ol id="anatomia-lista" class="anatomia-lista"></ol>
+        </div>
+      </div>
+      <span id="anatomia-fim" class="anatomia-fim" aria-hidden="true"></span>
+    </section>
+
+    <!-- Cardápio -->
+    <section class="cardapio" id="cardapio" aria-labelledby="cardapio-titulo">
+      <header class="cardapio-cabeca revela">
+        <p class="sobretitulo">Cardápio</p>
+        <h2 class="secao-titulo" id="cardapio-titulo">Escolha<br>o seu.</h2>
+        <p class="cardapio-intro">Quatro hambúrgueres. Passe o mouse na foto, ou toque em “Abrir camadas”, para ver cada um por dentro.</p>
+      </header>
+      <div class="cardapio-lista" id="cardapio-lista"></div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="fim" aria-labelledby="fim-titulo">
+      <div class="fim-inner revela">
+        <h2 class="fim-titulo" id="fim-titulo">Desmontou.<br><span>Agora escolhe.</span></h2>
+        <div class="fim-acoes">
+          <a class="btn btn-ember" href="#" data-pedido hidden>Pedir agora</a>
+          <a class="btn btn-claro" href="#cardapio">Ver cardápio</a>
+          <button class="link-seta" type="button" data-remontar>Montar de novo <span aria-hidden="true">↑</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-inner">
+      <p class="rodape-marca">Beco Mágico</p>
+      <nav class="rodape-nav" aria-label="Rodapé">
+        <a href="#anatomia">Anatomia</a>
+        <a href="#cardapio">Cardápio</a>
+      </nav>
+      <p class="rodape-nota">© <span id="ano">2026</span> Beco Mágico. Hambúrgueres renderizados em 3D, em tempo real, no seu navegador.</p>
+    </div>
+  </footer>
+</body>
+</html>

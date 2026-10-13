@@ -1,34 +1,40 @@
 # Beco Mágico — Design
 
 ## Mundo visual
-Um beco do centro antigo, à noite, iluminado por um único poste de luz de sódio.
-Duas texturas se alternam: a **noite** (verde-quase-preto, luz âmbar) e o **papel de botica**
-(rótulos de farmácia antiga, tinta cor de sangue de boi, carimbos). A placa esmaltada azul de rua
-é o selo da marca.
+Estúdio de fotografia gastronômica no escuro. Fundo preto quente, uma luz principal âmbar
+vinda do alto à esquerda, contraluz laranja separando o produto do fundo. O hambúrguer é o
+único objeto iluminado da cena; o resto da interface é tipografia e silêncio.
+Derivado dos prints de referência (preto + laranja + condensada pesada), mas sem cards
+repetidos, sem ícones decorativos e sem script manuscrito.
 
-## Tokens
+## Tokens (`css/styles.css`, `:root`)
 | token | valor | uso |
 |---|---|---|
-| `--night` | `#0d1311` | fundo das cenas noturnas |
-| `--night-2` | `#16201c` | superfícies sobre a noite |
-| `--paper` | `#efe6d2` | fundo de papel |
-| `--paper-2` | `#e2d4b6` | rótulos, cartões |
-| `--ink` | `#1c1a16` | texto sobre papel |
-| `--oxblood` | `#7d2124` | tinta de destaque, carimbos |
-| `--verdigris` | `#4f9a86` | detalhe frio, links na noite |
-| `--lamp` | `#f4b24a` | luz de sódio, CTA principal |
-| `--enamel` | `#1d3a70` | placa de rua |
+| `--bg` | `#0b0907` | fundo base |
+| `--bg-raise` | `#14100c` | faixas e superfícies |
+| `--line` | `rgb(255 236 214 / .1)` | divisores |
+| `--text` | `#f6ede1` | texto principal |
+| `--muted` | `#a8988a` | texto secundário |
+| `--ember` | `#f07c1e` | ação principal, destaques |
+| `--ember-ink` | `#1a0d03` | texto sobre `--ember` |
+| `--mustard` | `#f4b43c` | preços |
+| `--glow` | `rgb(240 124 30 / .22)` | halo de luz atrás do produto |
 
 ## Tipografia
-- Display: **Gloock** (serifa de alto contraste, cara de letreiro pintado).
-- Texto: **Newsreader** (serifa de leitura com ótico).
-- Etiquetas e números: **Martian Mono** em caixa-alta, espaçada.
+- Display: **Big Shoulders Display** 800–900, caixa-alta, entrelinha apertada.
+- Texto: **Geist** 400–600.
+- Rótulos, números, preços pequenos: **Geist Mono**, caixa-alta, espaçada.
 
-## Assinaturas
-- Lanterna: na cena de abertura a luz segue o cursor e revela uma frase escondida.
-- Placa esmaltada "BECO MÁGICO" como logotipo.
-- Rótulos de botica numerados (Nº 01…) para o cardápio.
-- Laboratório: o visitante mistura até 3 ingredientes e recebe uma poção com nome e rótulo.
+## Produto em 3D
+`js/three/` gera cada ingrediente como geometria com material físico (pão com gergelim,
+carne com crosta, cheddar escorrendo, alface ondulada, tomate, cebola roxa, bacon, onion
+rings, frango empanado, picles, coleslaw, molhos). As imagens do cardápio são renderizadas
+pelo mesmo motor, com a mesma luz e câmera. Para trocar por fotografia real, preencha
+`foto`/`fotoAberta` no produto em `js/data/cardapio.js`.
 
 ## Movimento
-Lento e de luz: brilho, fade e deslocamentos pequenos. Respeita `prefers-reduced-motion`.
+- Entrada: o hambúrguer desce e assenta em ~1s; nada bloqueia o scroll.
+- Seção de anatomia: progresso do scroll → separação das camadas (pão de cima primeiro,
+  cada camada com atraso, inclinação e rotação próprias), rótulos com linhas guia,
+  frase final, transição para o cardápio.
+- `prefers-reduced-motion`: sem entrada animada; anatomia mostrada já aberta, estática.
