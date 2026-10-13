@@ -1,53 +1,44 @@
 # Beco Mágico — Hamburgueria
 
-Landing page estática com um cheeseburger em 3D (Three.js) que se desmonta camada por camada
-conforme o scroll, seguido de um cardápio editorial.
+Landing page estática: hero com fotografia real e fumaça, experiência interativa com o
+cheeseburger, cardápio, localização em um beco 3D, avaliações e chamada final.
 
 ## Rodar localmente
-
-Os módulos ES precisam de um servidor HTTP (abrir o arquivo direto não funciona):
 
 ```sh
 python3 -m http.server 8000
 # abra http://localhost:8000
 ```
 
-Não há build nem dependências para instalar: o Three.js (r169) está em `vendor/three/`.
+Sem build e sem dependências: o Three.js (r169, só para o beco 3D) está em `vendor/three/`.
+No GitHub Pages: Settings → Pages → Deploy from a branch → esta branch, pasta `/ (root)`.
 
 ## Onde editar
 
 | O quê | Onde |
 |---|---|
-| Produtos, descrições, preços, moeda, camadas de cada hambúrguer | `js/data/cardapio.js` |
-| Link de pedidos (WhatsApp, iFood…) — botões só aparecem quando preenchido | `config.pedidosUrl` em `js/data/cardapio.js` |
-| Fotos reais no lugar das renderizações 3D | `foto` e `fotoAberta` de cada produto |
-| Cores, fontes, espaçamentos | tokens em `:root`, `css/styles.css` (ver `DESIGN.md`) |
-| Ingredientes 3D (forma, cor, material) | `js/three/ingredients.js` |
-| Ritmo da animação de scroll | `js/sections/anatomia.js` |
+| Produtos, descrições, preços, moeda, fotos | `produtos` em `js/data/cardapio.js` |
+| Link de pedidos (botões só aparecem quando preenchido) | `config.pedidosUrl` |
+| Endereço real, horário, link do mapa | `local` (mude `ficticio` para `false`) |
+| Avaliações verificadas e origem | `avaliacoes` (mude `verificadas` para `true`, preencha `fonte`) |
+| Foto e camadas da experiência | `experiencia` |
+| Cores, fontes, espaçamentos | `:root` em `css/styles.css` (ver `DESIGN.md`) |
 
-## Estrutura
+## Fotos — pendência importante
 
-```
-index.html              marcação semântica de todas as seções
-css/styles.css          estilos e tokens
-js/main.js              inicialização, fallbacks, cabeçalho, entradas
-js/data/cardapio.js     fonte única de conteúdo
-js/sections/anatomia.js abertura + desmontagem controlada pelo scroll (palco sticky)
-js/sections/cardapio.js renderização do cardápio e alternância montado/aberto
-js/three/ingredients.js geometria e materiais de cada ingrediente
-js/three/burger.js      empilhamento e trajetórias de explosão
-js/three/stage.js       renderer, luz de estúdio, enquadramento de câmera
-js/three/snapshots.js   fotos do cardápio renderizadas pelo mesmo motor
-```
+As fotos em `assets/fotos/` foram recortadas dos prints de referência (≈300 px cada) e
+ampliadas com super-resolução. Servem como versão provisória; para a qualidade de campanha:
 
-## Pendências do cliente
-
-- **Confirmar preços e moeda.** Os valores vieram dos prints de referência (que estavam em `$`).
-- Endereço, horários, redes sociais e canal de pedidos: não foram fornecidos e não aparecem no site.
-- Fotografia real é opcional: o 3D funciona sozinho, mas `foto`/`fotoAberta` aceitam imagens.
+1. **Hero**: hambúrguer em fundo preto, ≥ 2000 px de altura (o fundo é recortado automaticamente
+   se for escuro e uniforme; PNG/WebP com transparência é ainda melhor).
+2. **Cardápio**: uma foto por produto, ≥ 1600 px de largura, fundo escuro.
+3. **Experiência com camadas reais** (opcional): o MESMO hambúrguer fotografado camada por
+   camada, mesmo ângulo e enquadramento, PNG com fundo transparente. Liste os arquivos em
+   `experiencia.camadasFotos` (de baixo para cima).
 
 ## Acessibilidade e desempenho
 
-- `prefers-reduced-motion`: sem animação de scroll; a abertura vira estática e as camadas aparecem em lista.
-- Sem WebGL: a página continua completa, com as camadas em texto e o cardápio sem imagens.
-- A cena só renderiza quando algo muda (scroll, mouse, entrada) e para fora da tela.
+- Cabeçalho fixo compacto com menu recolhível no celular; âncoras com compensação do cabeçalho.
+- Nenhuma seção prende o scroll; a experiência funciona por slider, botões e teclado.
+- `prefers-reduced-motion` respeitado; sem WebGL a página continua completa.
+- Fumaça em baixa resolução e fps limitado; beco 3D carregado só perto da seção, com versão leve no celular.

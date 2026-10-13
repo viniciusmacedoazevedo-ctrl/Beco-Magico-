@@ -1,40 +1,36 @@
 # Beco Mágico — Design
 
 ## Mundo visual
-Estúdio de fotografia gastronômica no escuro. Fundo preto quente, uma luz principal âmbar
-vinda do alto à esquerda, contraluz laranja separando o produto do fundo. O hambúrguer é o
-único objeto iluminado da cena; o resto da interface é tipografia e silêncio.
-Derivado dos prints de referência (preto + laranja + condensada pesada), mas sem cards
-repetidos, sem ícones decorativos e sem script manuscrito.
+Campanha gastronômica de edição de Halloween. Fundo preto quente, luz âmbar vinda de trás do
+produto, fumaça lenta, névoa rasteira, lua cheia e poucos morcegos — sempre em segundo plano.
+A comida é sempre fotografia real; efeitos nunca cobrem ingredientes.
 
 ## Tokens (`css/styles.css`, `:root`)
 | token | valor | uso |
 |---|---|---|
-| `--bg` | `#0b0907` | fundo base |
-| `--bg-raise` | `#14100c` | faixas e superfícies |
+| `--bg` | `#0b0907` | fundo base (preto quente) |
+| `--bg-raise` | `#14110f` | faixas |
+| `--surface` | `#1a1716` | cards, superfícies secundárias (cinza escuro) |
 | `--line` | `rgb(255 236 214 / .1)` | divisores |
-| `--text` | `#f6ede1` | texto principal |
-| `--muted` | `#a8988a` | texto secundário |
-| `--ember` | `#f07c1e` | ação principal, destaques |
-| `--ember-ink` | `#1a0d03` | texto sobre `--ember` |
-| `--mustard` | `#f4b43c` | preços |
-| `--glow` | `rgb(240 124 30 / .22)` | halo de luz atrás do produto |
+| `--text` | `#f6ede1` | texto (creme) |
+| `--muted` | `#b2a293` | texto secundário |
+| `--ember` | `#f07c1e` | laranja: ações, destaques, estrelas |
+| `--amber` | `#ffb24d` | luz, foco, reflexos |
+| `--mustard` | `#f4b43c` | preços, selos de demonstração |
 
 ## Tipografia
-- Display: **Big Shoulders Display** 800–900, caixa-alta, entrelinha apertada.
-- Texto: **Geist** 400–600.
-- Rótulos, números, preços pequenos: **Geist Mono**, caixa-alta, espaçada.
+Big Shoulders Display (títulos, caixa-alta) · Geist (texto) · Geist Mono (rótulos). Só essas três.
 
-## Produto em 3D
-`js/three/` gera cada ingrediente como geometria com material físico (pão com gergelim,
-carne com crosta, cheddar escorrendo, alface ondulada, tomate, cebola roxa, bacon, onion
-rings, frango empanado, picles, coleslaw, molhos). As imagens do cardápio são renderizadas
-pelo mesmo motor, com a mesma luz e câmera. Para trocar por fotografia real, preencha
-`foto`/`fotoAberta` no produto em `js/data/cardapio.js`.
+## Componentes e efeitos
+- **Fumaça** (`js/fx/fumaca.js`): shader WebGL procedural, resolução reduzida, 24–30 fps,
+  pausa fora da tela. Coluna atrás do produto + névoa na base.
+- **Experiência** (`js/sections/experiencia.js`): fotografia real; a luz percorre as camadas
+  (slider, botões, ou o scroll local enquanto o visitante não toca nos controles). Com fotos
+  recortadas de cada camada (`experiencia.camadasFotos`), passa a separar as camadas de verdade.
+- **Beco 3D** (`js/sections/localizacao.js`): cena Three.js pequena (fachadas, janelas,
+  postes, placa, marcador, lua, morcegos, névoa). Carregada sob demanda; versão leve no celular.
+- **Selo de demonstração**: pílula tracejada mostarda para todo conteúdo fictício.
 
 ## Movimento
-- Entrada: o hambúrguer desce e assenta em ~1s; nada bloqueia o scroll.
-- Seção de anatomia: progresso do scroll → separação das camadas (pão de cima primeiro,
-  cada camada com atraso, inclinação e rotação próprias), rótulos com linhas guia,
-  frase final, transição para o cardápio.
-- `prefers-reduced-motion`: sem entrada animada; anatomia mostrada já aberta, estática.
+Entrada do hero ~1,3 s (foto revelada pela luz, fumaça surgindo), sem bloquear navegação.
+`prefers-reduced-motion`: sem animações; fumaça e beco viram quadros estáticos.
