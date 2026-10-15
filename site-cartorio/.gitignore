@@ -1,0 +1,10 @@
+# Configuração com senhas reais — nunca versionar
+app/config.php
+
+# Dados gerados em produção
+storage/logs/*
+storage/anexos/*
+storage/transparencia/*
+storage/*.sqlite
+!storage/**/.gitkeep
+!storage/.htaccess
